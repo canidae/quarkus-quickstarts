@@ -1,8 +1,11 @@
 package org.acme.security.openid.connect.web.authentication;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -58,5 +61,13 @@ public class TokenResource {
         response.append("<li>refresh_token: ").append(refreshToken.getToken() != null).append("</li>");
 
         return response.append("</ul>").append("</body>").append("</html>").toString();
+    }
+
+    @GET
+    @RolesAllowed("user")
+    @Path("test")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String test() {
+        return "{\"msg\":\"Hi!\"}";
     }
 }
